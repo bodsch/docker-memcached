@@ -1,36 +1,49 @@
-TYPE := memcached
-IMAGE_NAME := ${USER}-docker-${TYPE}
+
+CONTAINER  := memcached
+IMAGE_NAME := docker-memcached
+
 
 build:
-	docker build --rm --tag=$(IMAGE_NAME) .
+	docker \
+		build \
+		--rm --tag=$(IMAGE_NAME) .
+	@echo Image tag: ${IMAGE_NAME}
 
 run:
-	docker run \
+	docker \
+		run \
 		--detach \
 		--interactive \
 		--tty \
 		--publish=11211:11211 \
-		--hostname=${USER}-memcached \
-		--name=${USER}-${TYPE} \
+		--hostname=${CONTAINER} \
+		--name=${CONTAINER} \
 		$(IMAGE_NAME)
 
 shell:
-	docker run \
+	docker \
+		run \
 		--rm \
 		--interactive \
 		--publish=11211:12211 \
 		--tty \
-		--hostname=${USER}-memcached \
-		--name=${USER}-${TYPE} \
+		--hostname=${CONTAINER} \
+		--name=${CONTAINER} \
 		$(IMAGE_NAME)
 
 exec:
-	docker exec \
+	docker \
+		exec \
 		--interactive \
 		--tty \
-		${USER}-${TYPE} \
+		${CONTAINER} \
 		/bin/sh
 
 stop:
-	docker kill \
-		${USER}-${TYPE}
+	docker \
+		kill ${CONTAINER}
+
+history:
+	docker \
+		history ${IMAGE_NAME}
+
