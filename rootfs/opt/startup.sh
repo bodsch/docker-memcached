@@ -7,7 +7,19 @@ then
   set -x
 fi
 
+MEMCACHED_MEMORY=${MEMCACHED_MEMORY:-8}
+
 # -------------------------------------------------------------------------------------------------
+
+cfgFile="/etc/supervisor.d/memcached.ini"
+
+createConfig() {
+
+  sed -i \
+    -e "s/%MEMORY%/${MEMCACHED_MEMORY}/" \
+    ${cfgFile}
+}
+
 
 startSupervisor() {
 
@@ -22,6 +34,8 @@ startSupervisor() {
 # -------------------------------------------------------------------------------------------------
 
 run() {
+
+  createConfig
 
   startSupervisor
 

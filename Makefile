@@ -29,7 +29,8 @@ shell:
 		--tty \
 		--hostname=${CONTAINER} \
 		--name=${CONTAINER} \
-		$(IMAGE_NAME)
+		$(IMAGE_NAME) \
+		/bin/bash
 
 exec:
 	docker \
