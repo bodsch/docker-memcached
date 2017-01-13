@@ -37,7 +37,9 @@ run() {
 
   createConfig
 
-  startSupervisor
+  /usr/bin/memcached -l 0.0.0.0 -m ${MEMCACHED_MEMORY} -u memcached
+
+#  startSupervisor
 
 }
 
