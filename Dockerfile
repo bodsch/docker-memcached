@@ -3,7 +3,7 @@ FROM alpine:latest
 
 MAINTAINER Bodo Schulz <bodo@boone-schulz.de>
 
-LABEL version="1702-02"
+LABEL version="1704-01"
 
 ENV \
   ALPINE_MIRROR="dl-cdn.alpinelinux.org" \
@@ -17,23 +17,16 @@ EXPOSE 11211
 RUN \
   echo "http://${ALPINE_MIRROR}/alpine/${ALPINE_VERSION}/main"       > /etc/apk/repositories && \
   echo "http://${ALPINE_MIRROR}/alpine/${ALPINE_VERSION}/community" >> /etc/apk/repositories && \
-  apk --no-cache update && \
-  apk --no-cache upgrade && \
-  apk --no-cache add \
+  apk --quiet --no-cache update && \
+  apk --quiet --no-cache upgrade && \
+  apk --quiet --no-cache add \
     memcached && \
-  apk del --purge \
-    bash \
-    nano \
-    tree \
-    ca-certificates \
-    curl \
-    supervisor && \
   rm -rf \
     /tmp/* \
     /var/cache/apk/*
 
-COPY rootfs/ /
+ENTRYPOINT [ "/usr/bin/memcached" ]
 
-CMD [ "/opt/startup.sh" ]
+CMD [ "-l", "0.0.0.0", "-m", "8", "-u", "memcached" ]
 
 # EOF

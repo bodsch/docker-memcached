@@ -12,6 +12,7 @@ build:
 clean:
 	docker \
 		rmi \
+		--force \
 		${IMAGE_NAME}
 
 run:
@@ -23,7 +24,8 @@ run:
 		--publish=11211:11211 \
 		--hostname=${CONTAINER} \
 		--name=${CONTAINER} \
-		$(IMAGE_NAME)
+		$(IMAGE_NAME) \
+		-l 0.0.0.0 -m 16 -u memcached
 
 shell:
 	docker \
