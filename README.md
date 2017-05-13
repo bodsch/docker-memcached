@@ -1,28 +1,37 @@
 docker-memcached
 =================
 
-A Docker container for an complete memcached Stack. Usable in combination with Grafana.
+A Docker container for an complete memcached Stack.
+
 
 # Status
 
-[![Build Status](https://travis-ci.org/bodsch/docker-memcached.svg?branch=1702-02)](https://travis-ci.org/bodsch/docker-memcached)
+[![Docker Pulls](https://img.shields.io/docker/pulls/bodsch/docker-memcached.svg?branch=1705-03)][hub]
+[![Image Size](https://images.microbadger.com/badges/image/bodsch/docker-memcached.svg?branch=1705-03)][microbadger]
+[![Build Status](https://travis-ci.org/bodsch/docker-memcached.svg?branch=1705-03)][travis]
+
+[hub]: https://hub.docker.com/r/bodsch/docker-memcached/
+[microbadger]: https://microbadger.com/images/bodsch/docker-memcached
+[travis]: https://travis-ci.org/bodsch/docker-memcached
+
 
 # Build
 Your can use the included Makefile.
 
-To build the Container: ```make build```
+To build the Container: `make build`
 
-To remove the builded Docker Image: ```make clean```
+To remove the builded Docker Image: `make clean`
 
-Starts the Container: ```make run```
+Starts the Container: `make run`
 
-Starts the Container with Login Shell: ```make shell```
+Starts the Container with Login Shell: `make shell`
 
-Entering the Container: ```make exec```
+Entering the Container: `make exec`
 
-Stop (but **not kill**): ```make stop```
+Stop (but **not kill**): `make stop`
 
-History ```make history```
+History `make history`
+
 
 # Docker Hub
 
@@ -43,9 +52,6 @@ You can find the Container also at  [DockerHub](https://hub.docker.com/r/bodsch/
       --name=memcached \
       bodsch/docker-memcached
 
-# supported Environment Vars
-
-MEMCACHED_MEMORY - in MiB (default: ```8```)
 
 # Ports
  - 11211: standard Port for Memcached
