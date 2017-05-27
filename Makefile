@@ -4,8 +4,8 @@ include env_make
 NS       = bodsch
 VERSION ?= latest
 
-REPO     = docker-grafana
-NAME     = grafana
+REPO     = docker-memcached
+NAME     = memcached
 INSTANCE = default
 
 .PHONY: build push shell run start stop rm release
