@@ -1,58 +1,82 @@
 
-CONTAINER  := memcached
-IMAGE_NAME := docker-memcached
+include env_make
+
+NS       = bodsch
+VERSION ?= latest
+
+REPO     = docker-memcached
+NAME     = memcached
+INSTANCE = default
+
+.PHONY: build push shell run start stop rm release
 
 
 build:
-	docker \
-		build \
-		--rm --tag=$(IMAGE_NAME) .
-	@echo Image tag: ${IMAGE_NAME}
+	docker build \
+		--rm \
+		--tag $(NS)/$(REPO):$(VERSION) .
 
 clean:
-	docker \
-		rmi \
+	docker rmi \
 		--force \
-		${IMAGE_NAME}
-
-run:
-	docker \
-		run \
-		--detach \
-		--interactive \
-		--tty \
-		--publish=11211:11211 \
-		--hostname=${CONTAINER} \
-		--name=${CONTAINER} \
-		$(IMAGE_NAME) \
-		-l 0.0.0.0 -m 16 -u memcached
-
-shell:
-	docker \
-		run \
-		--rm \
-		--interactive \
-		--publish=11211:12211 \
-		--tty \
-		--hostname=${CONTAINER} \
-		--name=${CONTAINER} \
-		--entrypoint '' \
-		$(IMAGE_NAME) \
-		/bin/sh
-
-exec:
-	docker \
-		exec \
-		--interactive \
-		--tty \
-		${CONTAINER} \
-		/bin/sh
-
-stop:
-	docker \
-		kill ${CONTAINER}
+		$(NS)/$(REPO):$(VERSION)
 
 history:
-	docker \
-		history ${IMAGE_NAME}
+	docker history \
+		$(NS)/$(REPO):$(VERSION)
 
+push:
+	docker push \
+		$(NS)/$(REPO):$(VERSION)
+
+shell:
+	docker run \
+		--rm \
+		--name $(NAME)-$(INSTANCE) \
+		--interactive \
+		--tty \
+		--entrypoint '' \
+		$(PORTS) \
+		$(VOLUMES) \
+		$(ENV) \
+		$(NS)/$(REPO):$(VERSION) \
+		/bin/sh
+
+run:
+	docker run \
+		--rm \
+		--name $(NAME)-$(INSTANCE) \
+		$(PORTS) \
+		$(VOLUMES) \
+		$(ENV) \
+		$(NS)/$(REPO):$(VERSION) \
+		-l 0.0.0.0 -m 16 -u memcached
+
+exec:
+	docker exec \
+		--interactive \
+		--tty \
+		$(NAME)-$(INSTANCE) \
+		/bin/sh
+
+start:
+	docker run \
+		--detach \
+		--name $(NAME)-$(INSTANCE) \
+		$(PORTS) \
+		$(VOLUMES) \
+		$(ENV) \
+		$(NS)/$(REPO):$(VERSION)
+
+stop:
+	docker stop \
+		$(NAME)-$(INSTANCE)
+
+rm:
+	docker rm \
+		$(NAME)-$(INSTANCE)
+
+release: build
+	make push -e VERSION=$(VERSION)
+
+default: build
