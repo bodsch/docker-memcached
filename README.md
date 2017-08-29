@@ -6,9 +6,9 @@ A Docker container for an complete memcached Stack.
 
 # Status
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/bodsch/docker-memcached.svg?branch=1705-03)][hub]
-[![Image Size](https://images.microbadger.com/badges/image/bodsch/docker-memcached.svg?branch=1705-03)][microbadger]
-[![Build Status](https://travis-ci.org/bodsch/docker-memcached.svg?branch=1705-03)][travis]
+[![Docker Pulls](https://img.shields.io/docker/pulls/bodsch/docker-memcached.svg?branch)][hub]
+[![Image Size](https://images.microbadger.com/badges/image/bodsch/docker-memcached.svg?branch)][microbadger]
+[![Build Status](https://travis-ci.org/bodsch/docker-memcached.svg?branch)][travis]
 
 [hub]: https://hub.docker.com/r/bodsch/docker-memcached/
 [microbadger]: https://microbadger.com/images/bodsch/docker-memcached

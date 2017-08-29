@@ -7,13 +7,13 @@ ENV \
   ALPINE_MIRROR="mirror1.hs-esslingen.de/pub/Mirrors" \
   ALPINE_VERSION="v3.6" \
   TERM=xterm \
-  BUILD_DATE="2017-07-08" \
-  VERSION=1.4.36-r0
+  BUILD_DATE="2017-08-29" \
+  VERSION="1.4.36-r1"
 
 EXPOSE 11211
 
 LABEL \
-  version="1707-27.1" \
+  version="1708-35" \
   org.label-schema.build-date=${BUILD_DATE} \
   org.label-schema.name="Memcached Docker Image" \
   org.label-schema.description="Inofficial Memcached Docker Image" \
