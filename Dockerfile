@@ -4,16 +4,14 @@ FROM alpine:3.6
 MAINTAINER Bodo Schulz <bodo@boone-schulz.de>
 
 ENV \
-  ALPINE_MIRROR="mirror1.hs-esslingen.de/pub/Mirrors" \
-  ALPINE_VERSION="v3.6" \
   TERM=xterm \
-  BUILD_DATE="2017-10-05" \
+  BUILD_DATE="2017-11-28" \
   VERSION="1.4.36-r1"
 
 EXPOSE 11211
 
 LABEL \
-  version="1710" \
+  version="1711" \
   org.label-schema.build-date=${BUILD_DATE} \
   org.label-schema.name="Memcached Docker Image" \
   org.label-schema.description="Inofficial Memcached Docker Image" \
@@ -28,15 +26,20 @@ LABEL \
 # ---------------------------------------------------------------------------------------
 
 RUN \
-  echo "http://${ALPINE_MIRROR}/alpine/${ALPINE_VERSION}/main"       > /etc/apk/repositories && \
-  echo "http://${ALPINE_MIRROR}/alpine/${ALPINE_VERSION}/community" >> /etc/apk/repositories && \
-  apk --no-cache update && \
-  apk --no-cache upgrade && \
-  apk --no-cache add \
+  apk update --no-cache && \
+  apk upgrade --no-cache && \
+  apk add --quiet \
     memcached && \
   rm -rf \
     /tmp/* \
     /var/cache/apk/*
+
+HEALTHCHECK \
+  --interval=5s \
+  --timeout=2s \
+  --retries=12 \
+  CMD /usr/bin/nc -z 127.0.0.1 11211 || exit 1
+
 
 ENTRYPOINT [ "/usr/bin/memcached" ]
 
