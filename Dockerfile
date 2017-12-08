@@ -1,17 +1,17 @@
 
-FROM alpine:3.6
+FROM alpine:3.7
 
 MAINTAINER Bodo Schulz <bodo@boone-schulz.de>
 
 ENV \
   TERM=xterm \
-  BUILD_DATE="2017-11-28" \
-  VERSION="1.4.36-r1"
+  BUILD_DATE="2017-12-08" \
+  VERSION="1.5.3"
 
 EXPOSE 11211
 
 LABEL \
-  version="1711" \
+  version="1712" \
   org.label-schema.build-date=${BUILD_DATE} \
   org.label-schema.name="Memcached Docker Image" \
   org.label-schema.description="Inofficial Memcached Docker Image" \
