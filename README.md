@@ -3,6 +3,11 @@ docker-memcached
 
 A Docker container for an complete memcached Stack.
 
+**the further development was discontinued.**
+
+**please use in the future the [official container](https://hub.docker.com/r/library/memcached/tags/)**
+
+---
 
 # Status
 

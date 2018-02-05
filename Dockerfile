@@ -1,5 +1,6 @@
 
 FROM alpine:3.7
+#FROM memcached:1.5.4-alpine
 
 MAINTAINER Bodo Schulz <bodo@boone-schulz.de>
 
@@ -30,6 +31,7 @@ RUN \
   apk upgrade --no-cache && \
   apk add --quiet \
     memcached && \
+  adduser -D memcache && \
   rm -rf \
     /tmp/* \
     /var/cache/apk/*
@@ -38,7 +40,7 @@ HEALTHCHECK \
   --interval=5s \
   --timeout=2s \
   --retries=12 \
-  CMD /usr/bin/nc -z 127.0.0.1 11211 || exit 1
+  CMD /bin/echo stats | nc 127.0.0.1 11211 | grep -c version || exit 1
 
 
 ENTRYPOINT [ "/usr/bin/memcached" ]
